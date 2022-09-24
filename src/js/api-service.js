@@ -20,11 +20,11 @@ export default class ApiService {
       
          return fetch(`${BASE_URL}?key=${key}&q=${this.q}&image_type=${image_type}&orientation=${orientation}&page=${this.page}&per_page=40`)
          .then(r => r.json())
-         .then(({hits})=> {
-          
+         .then((data)=> {
+            
             this.page += 1;
             // console.log(`после`, this)
-            return hits;
+            return data;
          }); 
 
          

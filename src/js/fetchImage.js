@@ -25,6 +25,8 @@ function addRequest(e) {
     apiService.clearForm();
     apiService.fetchImage().then(addArticleImage);
 
+    Notiflix.Notify.success('`We found ${hits.} Please enter a more specific name.`');
+
 }
 
 function onMoreAdd(e) {
@@ -37,36 +39,40 @@ function onMoreAdd(e) {
 function cleanView() {
   refs.imageGallery.innerHTML = ``;
 };
-function addArticleImage(hits) {
-    console.log(hits)
-   const cart = hits.map(({largeImageURL, webformatURL, tags, likes, views, comments, downloads}) => {
+function addArticleImage(data) {
+    
+   const cart = data.hits.map(({largeImageURL, webformatURL, tags, likes, views, comments, downloads}) => {
       return `
       <div class="photo-card">
       <a class="gallery__link" href="${largeImageURL}">
-       <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+       <img class="gallery__img"src="${webformatURL}" alt="${tags}" loading="lazy" width "250"/>
        </a>
        <div class="info">
          <p class="info-item">
-           <b>Like: ${likes}</b>
+           <b>Like:<br> ${likes}</b>
          </p>
          <p class="info-item">
-           <b>View: ${views}</b>
+           <b>View: <br> ${views}</b>
          </p>
          <p class="info-item">
-           <b>Comment: ${comments}</b>
+           <b>Comment: <br>${comments}</b>
          </p>
          <p class="info-item">
-           <b>Download: ${downloads}</b>
+           <b>Download: <br>${downloads}</b>
          </p>
        </div>
      </div>`;
     }).join("");
     refs.imageGallery.insertAdjacentHTML("beforeend", cart)
+    const light = new SimpleLightbox(`.photo-card a`, { captionsData: 'alt',captionDelay: 250,});
+
+    console.log(data.totalHits)
     // console.log(addArticleImage(cart))
 }
-const light = new SimpleLightbox(`.photo-card a`, { captionsData: 'alt',captionDelay: 250,});
+// const light = new SimpleLightbox(`.photo-card a`, { captionsData: 'alt',captionDelay: 250,});
 
 // light();
+
 function onError(error) {
     
 }

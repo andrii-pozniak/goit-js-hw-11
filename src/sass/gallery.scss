@@ -1,0 +1,24 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    
+}
+.photo-card {
+    width: calc((100% - 90px)/4); 
+    height: calc((100% - 90px)/3); 
+}
+.gallery__img {
+    width: 420px; 
+    height: 280px; 
+   
+}
+.info {
+    display: flex;
+}
+.info-item {
+    width: calc((100%) / 4);
+    padding: 5px;
+    text-align: center;
+}
