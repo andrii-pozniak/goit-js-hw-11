@@ -3,6 +3,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 import Notiflix from 'notiflix';
 import getRefs from "./getRefs";
 import ApiService from "./api-service";
+import articleImage from "../templates/article.hbs"
 
 let debounce = require('lodash.debounce');
 const refs = getRefs()
