@@ -1,7 +1,10 @@
 export default function getRefs() {
     return {
         inputRequest: document.querySelector(`input`),
-        form: document.querySelector(`#search-form`)
+        searchForm: document.querySelector(`#search-form`),
+        submitBtn: document.querySelector(`button`),
+        moreBtn: document.querySelector(`.load-more`)
+
     }
     
 }
