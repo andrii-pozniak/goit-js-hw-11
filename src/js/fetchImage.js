@@ -18,15 +18,24 @@ function addRequest(e) {
 
     e.preventDefault();
 
-    refs.moreBtn.classList.remove('is-hidden');
+   
     // refs.submitBtn.disabled = false;
     // refs.moreBtn.disabled = false;
 
     apiService.q = e.currentTarget.elements.searchQuery.value;
     cleanView();
     apiService.clearForm();
-    apiService.fetchImage().then(addArticleImage);
-   
+    apiService.fetchImage().then(data => {
+      addArticleImage(data);
+      console.log('OK', data.totalHits)
+      if (data.totalHits === 0) {
+
+        Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+       return;
+      } 
+      Notiflix.Notify.success(`"Hooray! We found ${data.totalHits} images."`); 
+      refs.moreBtn.classList.remove('is-hidden');
+    });
     
 }
 
@@ -35,9 +44,15 @@ refs.moreBtn.classList.add('is-hidden');
 function onMoreAdd(e) {
     e.preventDefault();
     
-
-    apiService.fetchImage().then(addArticleImage);
+    endImages();
+    apiService.fetchImage().then(data => {
+      addArticleImage(data)
+     
+    });
+   
+    
 };
+
 
 // function scrollImage (e) {
 //   const { height: cardHeight } = document
@@ -54,16 +69,11 @@ function onMoreAdd(e) {
 function cleanView() {
   refs.imageGallery.innerHTML = ``;
 };
-function addArticleImage(data) {
-  // console.log("ok", data);
-  if (data.totalHits === 0) {
 
-    Notiflix.Notify.failure ("Sorry, there are no images matching your search query. Please try again.")
-    console.log(data.totalHits)
-    return;
-  }
-  
-  Notiflix.Notify.success(`"Hooray! We found ${data.totalHits} images."`);
+function endImages(data) {
+ 
+}
+function addArticleImage(data) { 
   
    const cart = data.hits.map(({largeImageURL, webformatURL, tags, likes, views, comments, downloads}) => {
       return `
@@ -91,6 +101,7 @@ function addArticleImage(data) {
     const light = new SimpleLightbox(`.photo-card a`, { captionsData: 'alt',captionDelay: 250,});
    
     console.log(data.totalHits)
+    
     // console.log(addArticleImage(cart))
 }
 // const light = new SimpleLightbox(`.photo-card a`, { captionsData: 'alt',captionDelay: 250,});

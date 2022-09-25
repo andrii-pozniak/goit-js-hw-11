@@ -1,4 +1,8 @@
 import axios from "axios";
+import getRefs from "./getRefs";
+
+const refs = getRefs()
+
 
 export default class ApiService {
     constructor (){
@@ -21,14 +25,20 @@ export default class ApiService {
          return fetch(`${BASE_URL}?key=${key}&q=${this.q}&image_type=${image_type}&orientation=${orientation}&page=${this.page}&per_page=40`)
          .then(r => r.json())
          .then((data)=> {
-            
+           
             this.page += 1;
-            // console.log(`после`, this)
+            const endImages = `<p class="info-end">
+            <b>"We're sorry, but you've reached the end of search results."</b>
+          </p>`
+            if (data.totalHits/( this.page * 40) <= 1 && data.totalHits/( this.page * 40)> 0 && data.totalHits/( this.page * 40))  {
+                refs.moreBtn.classList.add('is-hidden');  
+                refs.imageGallery.insertAdjacentHTML("afterend", endImages)
+
+            }
+           
             return data;
          }); 
-
-         
-              
+       
     }
 
      clearForm() {
@@ -44,22 +54,5 @@ export default class ApiService {
     
 };
 
-// options = {
-    
-
-// }
-// const BASE_URL = `https://pixabay.com/api/`
-// let  {key, q, image_type, orientation} = options;
-// // let imageId = ``
-
-// // console.log(imageId);
-// async function fetchImage(q) {
-//     const {data: {hits}} = await axios.get(`${BASE_URL},?key=${key}&q=${q}&image_type=${image_type}&orientation=${orientation}`);
-//     // console.log(hits);
-   
-//     return hits;
-// // console.log(resp.json())
-// // console.log(`${key}`)
-// }
 
  
