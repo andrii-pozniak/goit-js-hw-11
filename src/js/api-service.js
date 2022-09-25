@@ -10,8 +10,7 @@ export default class ApiService {
         this.page = 1;
     }   
 
-     fetchImage() {
-        // console.log(this)
+     async fetchImage() {
         const options = {
         key: `30111501-80dfaf6bf0e872b32b653e61a`,
       
@@ -22,24 +21,22 @@ export default class ApiService {
         const BASE_URL = `https://pixabay.com/api/`
         let  {key, image_type, orientation} = options;
       
-         return fetch(`${BASE_URL}?key=${key}&q=${this.q}&image_type=${image_type}&orientation=${orientation}&page=${this.page}&per_page=40`)
-         .then(r => r.json())
-         .then((data)=> {
+         const response  = await axios.get(`${BASE_URL}?key=${key}&q=${this.q}&image_type=${image_type}&orientation=${orientation}&page=${this.page}&per_page=40`)
+          const data = response.data; 
            
             this.page += 1;
             const endImages = `<p class="info-end">
             <b>"We're sorry, but you've reached the end of search results."</b>
           </p>`
-            if (data.totalHits/( this.page * 40) <= 1 && data.totalHits/( this.page * 40)> 0 && data.totalHits/( this.page * 40))  {
+          const countPage = data.totalHits/( this.page * 40);
+            if (countPage <= 1 && countPage > 0)  {
                 refs.moreBtn.classList.add('is-hidden');  
                 refs.imageGallery.insertAdjacentHTML("afterend", endImages)
-
             }
-           
+           console.log(data)
             return data;
-         }); 
-       
-    }
+         }; 
+      
 
      clearForm() {
         this.page = 1;
