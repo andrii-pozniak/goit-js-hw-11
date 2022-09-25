@@ -30,7 +30,7 @@ export default class ApiService {
           </p>`
           const countPage = data.totalHits/( this.page * 40);
             if (countPage <= 1 && countPage > 0)  {
-                refs.moreBtn.classList.add('is-hidden');  
+                refs.moreBtn.classList.remove('is-hidden');
                 refs.imageGallery.insertAdjacentHTML("afterend", endImages)
             }
            console.log(data)
