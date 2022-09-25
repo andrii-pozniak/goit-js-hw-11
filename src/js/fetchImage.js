@@ -40,7 +40,7 @@ refs.moreBtn.classList.add('is-hidden');
 function onMoreAdd(e) {
     e.preventDefault();
     
-   
+    
     apiService.fetchImage().then(data => {
       addArticleImage(data)
      
