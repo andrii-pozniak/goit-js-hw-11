@@ -1,10 +1,31 @@
+
+.gallery::before {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    content: '';
+    width: 100vw;
+    height: 50px;
+    background-color: #2a2ae9;
+}
+ .search-form {
+    position: fixed;
+    z-index: 50;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%    );
+     }
+
 .gallery {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 20px;
-    
-}
+    padding-top: 70px;
+
+}   
+
 .photo-card {
     width: calc((100% - 90px)/4); 
     height: calc((100% - 90px)/3); 
@@ -21,4 +42,9 @@
     width: calc((100%) / 4);
     padding: 5px;
     text-align: center;
+}
+.is-hidden {
+    opacity: 0;
+    
+    pointer-events: none;
 }

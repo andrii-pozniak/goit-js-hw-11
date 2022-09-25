@@ -12,22 +12,25 @@ const apiService = new ApiService ();
 
 refs.searchForm.addEventListener(`submit`, addRequest);
 refs.moreBtn.addEventListener(`click`, onMoreAdd)
-refs.submitBtn.disabled = false;
-    refs.moreBtn.disabled = true;
+// refs.submitBtn.disabled = false;
+//     refs.moreBtn.disabled = true;
 function addRequest(e) {
 
     e.preventDefault();
-    refs.submitBtn.disabled = false;
-    refs.moreBtn.disabled = false;
+
+    refs.moreBtn.classList.remove('is-hidden');
+    // refs.submitBtn.disabled = false;
+    // refs.moreBtn.disabled = false;
 
     apiService.q = e.currentTarget.elements.searchQuery.value;
     cleanView();
     apiService.clearForm();
     apiService.fetchImage().then(addArticleImage);
-
-    Notiflix.Notify.success('`We found ${hits.} Please enter a more specific name.`');
-
+   
+    
 }
+
+refs.moreBtn.classList.add('is-hidden');
 
 function onMoreAdd(e) {
     e.preventDefault();
@@ -36,11 +39,32 @@ function onMoreAdd(e) {
     apiService.fetchImage().then(addArticleImage);
 };
 
+// function scrollImage (e) {
+//   const { height: cardHeight } = document
+//   .querySelector(".gallery")
+//   .firstElementChild.getBoundingClientRect().y <= -580 || null;
+
+// window.scrollBy({
+//   top: cardHeight * 2,
+//   behavior: "smooth",
+// });
+// console.log()
+// }
+
 function cleanView() {
   refs.imageGallery.innerHTML = ``;
 };
 function addArticleImage(data) {
-    
+  // console.log("ok", data);
+  if (data.totalHits === 0) {
+
+    Notiflix.Notify.failure ("Sorry, there are no images matching your search query. Please try again.")
+    console.log(data.totalHits)
+    return;
+  }
+  
+  Notiflix.Notify.success(`"Hooray! We found ${data.totalHits} images."`);
+  
    const cart = data.hits.map(({largeImageURL, webformatURL, tags, likes, views, comments, downloads}) => {
       return `
       <div class="photo-card">
@@ -65,13 +89,14 @@ function addArticleImage(data) {
     }).join("");
     refs.imageGallery.insertAdjacentHTML("beforeend", cart)
     const light = new SimpleLightbox(`.photo-card a`, { captionsData: 'alt',captionDelay: 250,});
-
+   
     console.log(data.totalHits)
     // console.log(addArticleImage(cart))
 }
 // const light = new SimpleLightbox(`.photo-card a`, { captionsData: 'alt',captionDelay: 250,});
 
 // light();
+
 
 function onError(error) {
     
