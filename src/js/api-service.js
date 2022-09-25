@@ -25,12 +25,14 @@ export default class ApiService {
           const data = response.data; 
            
             this.page += 1;
+            
             const endImages = `<p class="info-end">
             <b>"We're sorry, but you've reached the end of search results."</b>
           </p>`
-          const countPage = data.totalHits/( this.page * 40);
+          const countPage = data.totalHits / ( this.page * 40);
             if (countPage <= 1 && countPage > 0)  {
-                refs.moreBtn.classList.remove('is-hidden');
+                refs.moreBtn.classList.add('is-hidden');                refs.imageGallery.insertAdjacentHTML("afterend", endImages)
+
                 refs.imageGallery.insertAdjacentHTML("afterend", endImages)
             }
            console.log(data)
