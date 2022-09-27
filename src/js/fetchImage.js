@@ -16,9 +16,7 @@ refs.moreBtn.addEventListener(`click`, onMoreAdd)
 
 function addRequest(e) {
 
-    e.preventDefault();
-   
-    
+    e.preventDefault();    
 
     apiService.q = e.currentTarget.elements.searchQuery.value;
     cleanView();
