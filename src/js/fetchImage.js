@@ -6,7 +6,6 @@ import ApiService from "./api-service";
 import articleGallery from "./article.hbs";
 import onCarts from "./cart";
 
-
 const refs = getRefs()
 
 const apiService = new ApiService ();
