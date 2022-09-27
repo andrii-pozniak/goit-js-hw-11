@@ -38,8 +38,7 @@ function addRequest(e) {
 refs.moreBtn.classList.add('is-hidden');
 
 function onMoreAdd(e) {
-    e.preventDefault();
-    
+    e.preventDefault();    
     
     apiService.fetchImage().then(data => {
       addArticleImage(data)
@@ -62,9 +61,7 @@ function onMoreAdd(e) {
 
 function cleanView() {
 
-  refs.imageGallery.innerHTML = ``;
-  
-  
+  refs.imageGallery.innerHTML = ``; 
   
 };
 
