@@ -71,7 +71,7 @@ function addArticleImage(data) {
     refs.imageGallery.insertAdjacentHTML("beforeend", cart)
     const light = new SimpleLightbox(`.photo-card a`, { captionsData: 'alt',captionDelay: 250,});
    
-    console.log(data.totalHits)
+   
     
 }
 

@@ -30,14 +30,13 @@ export default class ApiService {
             <b>"We're sorry, but you've reached the end of search results."</b>
           </p>`
         //   const countPage = (data.totalHits / (40 * (this.page - 1)) ) ;
-          console.log(`countPage`, countPage)
 
             if (countPage <=  1 && countPage > 0)  {
                 refs.moreBtn.classList.add('is-hidden');                
 
                 refs.imageGallery.insertAdjacentHTML("afterend", endImages);
 
-                console.log(document.querySelector(`.info-end`))
+               
             }
           
             return data;
