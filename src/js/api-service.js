@@ -2,7 +2,7 @@ import axios from "axios";
 import getRefs from "./getRefs";
 
 const refs = getRefs()
-
+console.log(refs.infoEnd)
 
 export default class ApiService {
     constructor (){
@@ -23,23 +23,32 @@ export default class ApiService {
       
          const response  = await axios.get(`${BASE_URL}?key=${key}&q=${this.q}&image_type=${image_type}&orientation=${orientation}&page=${this.page}&per_page=40`)
           const data = response.data; 
-           
+         
             this.page += 1;
-
+             const countPage = (data.totalHits / (40 * (this.page - 1)) ) ;
             const endImages = `<p class="info-end">
             <b>"We're sorry, but you've reached the end of search results."</b>
           </p>`
-          const countPage = data.totalHits / ( this.page * 40);
-            if (countPage <= 1 && countPage > 0)  {
+        //   const countPage = (data.totalHits / (40 * (this.page - 1)) ) ;
+          console.log(`countPage`, countPage)
+
+            if (countPage <=  1 && countPage > 0)  {
                 refs.moreBtn.classList.add('is-hidden');                
 
                 refs.imageGallery.insertAdjacentHTML("afterend", endImages);
+
+                console.log(document.querySelector(`.info-end`))
             }
           
             return data;
          }; 
       
-
+    forEnd() {
+        if (document.querySelector(`.info-end`)) {
+            
+            document.querySelector(`.info-end`).remove();
+        }
+    }
      clearForm() {
         this.page = 1;
     }

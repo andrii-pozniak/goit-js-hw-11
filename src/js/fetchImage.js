@@ -17,10 +17,13 @@ refs.moreBtn.addEventListener(`click`, onMoreAdd)
 function addRequest(e) {
 
     e.preventDefault();
+   
+    
 
     apiService.q = e.currentTarget.elements.searchQuery.value;
     cleanView();
     apiService.clearForm();
+    apiService.forEnd();
     apiService.fetchImage().then(data => {
       addArticleImage(data);
       console.log('OK', apiService.q)
@@ -61,7 +64,11 @@ function onMoreAdd(e) {
 // }
 
 function cleanView() {
+
   refs.imageGallery.innerHTML = ``;
+  
+  
+  
 };
 
 function addArticleImage(data) { 
